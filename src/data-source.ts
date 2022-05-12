@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 
-import { User } from "./entities";
+import { User } from "./modules/user/entities";
 
 import { createUsers1652316103627 } from "./database/migrations";
 

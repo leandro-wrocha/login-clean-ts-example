@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { User } from "../entities";
+import { User } from "../modules/user/entities";
 import { AppDataSource } from "../data-source";
 
 export class ListUsersController {
