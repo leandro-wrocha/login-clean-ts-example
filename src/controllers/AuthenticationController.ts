@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
 
 import { User } from "../entities";
 import { AppDataSource } from "../data-source";
@@ -17,6 +18,8 @@ export class AuthenticationController {
         .json({ message: "Username or password incorrect" });
     }
 
-    return response.status(200).json(user);
+    const token = jwt.sign({ data: user }, "keybind", { expiresIn: "5m" });
+
+    return response.status(200).json(token);
   }
 }

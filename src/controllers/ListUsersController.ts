@@ -5,8 +5,6 @@ import { AppDataSource } from "../data-source";
 
 export class ListUsersController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { token } = request.body;
-
     const usersRepository = AppDataSource.getRepository(User);
     const users = await usersRepository.find();
 
