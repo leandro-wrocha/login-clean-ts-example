@@ -1,6 +1,8 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 
+import { User } from "./entities";
+
 import { createUsers1652316103627 } from "./database/migrations";
 
 export const AppDataSource = new DataSource({
@@ -8,6 +10,6 @@ export const AppDataSource = new DataSource({
   database: "./src/database/login-clean-ts-database.sql",
   logging: true,
 
-  entities: [],
+  entities: [User],
   migrations: [createUsers1652316103627],
 });
