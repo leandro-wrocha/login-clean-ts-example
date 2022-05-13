@@ -1,9 +1,9 @@
 import { Router } from "express";
 
-import { CreateUserController } from "../modules/user/controllers/CreateUserController";
-import { ListUsersController } from "../modules/user/controllers/ListUsersController";
+import { CreateUserController } from "@/modules/user/CreateUser/CreateUserController";
+import { ListUsersController } from "@/modules/user/ListUsers/ListUsersController";
 
-import { Auth } from "../middlewares/auth";
+import { Auth } from "@/middlewares/auth";
 
 const userRoutes = Router();
 

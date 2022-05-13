@@ -1,15 +1,18 @@
 import { inject, injectable } from "tsyringe";
-import { UserDTO } from "../dtos";
+import { User } from "../entities";
+
 import { IUserRepository } from "../repositories/IUserRepository";
 
 @injectable()
-export class CreateUserUseCase {
+export class ListUsersUseCase {
   constructor(
     @inject("UserRepository")
     private userRepository: IUserRepository
   ) {}
 
-  async execute(data: UserDTO): Promise<void> {
-    await this.userRepository.create(data);
+  async execute(): Promise<User[]> {
+    const users = await this.userRepository.list();
+
+    return users;
   }
 }

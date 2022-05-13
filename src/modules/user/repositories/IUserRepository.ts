@@ -1,8 +1,8 @@
-import { UserDTO } from "../dtos";
+import { IUserDTO } from "../dtos";
 import { User } from "../entities";
 
 export interface IUserRepository {
-  create: (data: UserDTO) => Promise<void>;
+  create: (data: IUserDTO) => Promise<void>;
   list: () => Promise<User[]>;
   findUserByUsername: (username: String) => Promise<User>;
 }

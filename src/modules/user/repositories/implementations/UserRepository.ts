@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
-import { AppDataSource } from "../../../../data-source";
-import { UserDTO } from "../../dtos";
+import { AppDataSource } from "@/data-source";
+import { IUserDTO } from "../../dtos";
 import { User } from "../../entities";
 import { IUserRepository } from "../IUserRepository";
 
@@ -13,7 +13,7 @@ export class UserRepository implements IUserRepository {
     this.userRepository = AppDataSource.getRepository(User);
   }
 
-  async create(data: UserDTO): Promise<void> {
+  async create(data: IUserDTO): Promise<void> {
     const user = Object.assign(
       {
         id: randomUUID(),

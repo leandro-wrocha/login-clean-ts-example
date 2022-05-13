@@ -1,11 +1,11 @@
-interface UserDTO {
+interface IUserDTO {
   username: string;
   password: string;
 }
 
-interface UserRequest {
+interface IUserRequest {
   username: string;
   password: string;
 }
 
-export { UserDTO, UserRequest };
+export { IUserDTO, IUserRequest };

@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import jwt from "jsonwebtoken";
 
-import { UserDTO } from "../../user/dtos";
+import { IUserDTO } from "../../user/dtos";
 import { IUserRepository } from "../../user/repositories/IUserRepository";
 
 @injectable()
@@ -11,7 +11,7 @@ export class AuthUseCase {
     private userRepository: IUserRepository
   ) {}
 
-  async execute({ username, password }: UserDTO): Promise<String> {
+  async execute({ username, password }: IUserDTO): Promise<String> {
     const user = await this.userRepository.findUserByUsername(username);
 
     if (!user.password || user.password !== password) {
