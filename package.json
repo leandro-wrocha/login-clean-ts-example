@@ -10,6 +10,8 @@
     "typeorm-run": "typeorm-ts-node-esm migration:run -d src/data-source.ts"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^8.5.8",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
     "reflect-metadata": "^0.1.13",
