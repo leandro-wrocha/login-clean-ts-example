@@ -30,10 +30,4 @@ export class UserRepository implements IUserRepository {
 
     return users;
   }
-
-  async findUserByUsername(username: string): Promise<User> {
-    const user = await this.userRepository.findOne({ where: { username } });
-
-    return user;
-  }
 }
