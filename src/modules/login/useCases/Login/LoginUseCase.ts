@@ -1,11 +1,11 @@
 import { inject, injectable } from "tsyringe";
 import jwt from "jsonwebtoken";
 
-import { IUserDTO } from "../../user/dtos";
-import { IUserRepository } from "../../user/repositories/IUserRepository";
+import { IUserDTO } from "@/modules/user/dtos";
+import { IUserRepository } from "@/modules/user/repositories/IUserRepository";
 
 @injectable()
-export class AuthUseCase {
+export class LoginUseCase {
   constructor(
     @inject("UserRepository")
     private userRepository: IUserRepository

@@ -1,9 +1,8 @@
-import "reflect-metadata";
 import { DataSource } from "typeorm";
 
 import { User } from "@/modules/user/entities";
 
-import { createUsers1652316103627 } from "@/database/migrations";
+import { createUsers1652316103627 } from "@/shared/infra/typeorm/migrations";
 
 export const AppDataSource = new DataSource({
   type: "sqlite",

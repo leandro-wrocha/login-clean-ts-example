@@ -108,3 +108,7 @@ dist
 
 # Ignore database sqlite
 src/database/login-clean-ts-database.sql
+
+# Keep folder database to file database
+
+!src/database/

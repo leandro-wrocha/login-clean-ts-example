@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
-import { User } from "../entities";
+import { User } from "../../entities";
 
-import { IUserRepository } from "../repositories/IUserRepository";
+import { IUserRepository } from "../../repositories/IUserRepository";
 
 @injectable()
 export class ListUsersUseCase {

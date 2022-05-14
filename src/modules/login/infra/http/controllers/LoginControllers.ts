@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { IUserRequest } from "../../user/dtos";
-import { AuthUseCase } from "./AuthUseCase";
+import { IUserRequest } from "@/modules/user/dtos";
+import { LoginUseCase } from "@/modules/login/useCases";
 
-export class AuthController {
+export class LoginController {
   async handle(request: Request, response: Response): Promise<Response> {
     const data: IUserRequest = request.body;
 
-    const authUseCase = container.resolve(AuthUseCase);
+    const authUseCase = container.resolve(LoginUseCase);
 
     const token = await authUseCase.execute(data);
 
