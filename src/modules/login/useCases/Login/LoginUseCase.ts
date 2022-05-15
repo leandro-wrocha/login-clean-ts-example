@@ -18,9 +18,13 @@ export class LoginUseCase {
       throw new Error("Username and Password incorrect");
     }
 
-    const token = jwt.sign({ data: user }, process.env.SECRET_KEY, {
-      expiresIn: "30s",
-    });
+    const token = jwt.sign(
+      { data: user },
+      process.env.SECRET_KEY || "testKey",
+      {
+        expiresIn: "30s",
+      }
+    );
 
     return token;
   }

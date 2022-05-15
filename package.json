@@ -8,7 +8,7 @@
     "dev": "tsnd --respawn --transpile-only -r tsconfig-paths/register  src/index.ts",
     "typeorm-cm": "typeorm-ts-node-esm migration:create",
     "typeorm-run": "typeorm-ts-node-esm migration:run -d src/data-source.ts",
-    "test": "jest"
+    "test": "jest --passWithNoTests --runInBand --no-cache"
   },
   "dependencies": {
     "@types/module-alias": "^2.0.1",
