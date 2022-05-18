@@ -1,14 +1,16 @@
-import { randomUUID } from "crypto";
+import { Repository } from "typeorm";
+
+import { AppDataSource } from "@/shared/infra/typeorm/data-source";
 
 import { User } from "@/modules/user/infra/typeorm/entities";
 import { IUserDTO } from "@/modules/user/dtos";
 import { IUserRepository } from "@/modules/user/repositories/IUserRepository";
 
-export class FakeUserRepository implements IUserRepository {
-  private users: User[];
+export class UserRepository implements IUserRepository {
+  private userRepository: Repository<User>;
 
   constructor() {
-    this.users = [];
+    this.userRepository = AppDataSource.getRepository(User);
   }
 
   async create({ username, password }: IUserDTO): Promise<void> {
@@ -16,15 +18,17 @@ export class FakeUserRepository implements IUserRepository {
     user.username = username;
     user.password = password;
 
-    this.users.push(user);
+    await this.userRepository.save(user);
   }
 
   async list(): Promise<User[]> {
-    return this.users;
+    const users = await this.userRepository.find();
+
+    return users;
   }
 
   async findUserByUsername(username: String): Promise<User> {
-    const user = this.users.find((user) => user.username === username);
+    const user = await this.userRepository.findOneBy({ username });
 
     return user;
   }

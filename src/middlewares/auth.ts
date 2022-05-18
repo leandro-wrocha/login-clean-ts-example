@@ -1,15 +1,14 @@
-import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
+
+import { verifyToken } from "@/modules/login/providers/verifyToken";
 
 export function Auth(request: Request, response: Response, next: NextFunction) {
   const { authorization } = request.headers;
 
-  const [, token] = authorization.split(" ");
-
   try {
-    const user = jwt.verify(token, process.env.SECRET_KEY);
+    verifyToken(authorization);
   } catch (err) {
-    return response.status(401).json({ message: "token expired" });
+    return response.status(404).json({ message: "Token expired" });
   }
 
   next();

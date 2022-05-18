@@ -1,8 +1,9 @@
 import { inject, injectable } from "tsyringe";
-import jwt from "jsonwebtoken";
 
+import { AppError } from "@/shared/errors/AppError";
 import { IUserDTO } from "@/modules/user/dtos";
 import { IUserRepository } from "@/modules/user/repositories/IUserRepository";
+import { generateToken } from "@/modules/login/providers/generateToken";
 
 @injectable()
 export class LoginUseCase {
@@ -11,20 +12,18 @@ export class LoginUseCase {
     private userRepository: IUserRepository
   ) {}
 
-  async execute({ username, password }: IUserDTO): Promise<String> {
+  async execute({ username, password }: IUserDTO): Promise<string> {
     const user = await this.userRepository.findUserByUsername(username);
 
-    if (!user.password || user.password !== password) {
-      throw new Error("Username and Password incorrect");
+    if (!user) {
+      throw new AppError(404, "Username or password incorrect");
     }
 
-    const token = jwt.sign(
-      { data: user },
-      process.env.SECRET_KEY || "testKey",
-      {
-        expiresIn: "30s",
-      }
-    );
+    if (user.password !== password) {
+      throw new AppError(401, "Username or password incorrect");
+    }
+
+    const token = generateToken(user);
 
     return token;
   }

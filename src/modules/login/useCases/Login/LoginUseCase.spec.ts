@@ -1,44 +1,46 @@
-import { FakeUserRepository } from "@/modules/user/repositories/fakes/FakeUserRepository";
+import { FakeUserRepository } from "@/modules/user/repositories/fakes";
+import { LoginUseCase } from "@/modules/login/useCases";
+import { CreateUserUseCase } from "@/modules/user/useCases";
+import { IUserRequest } from "@/modules/user/dtos";
 
-import { LoginUseCase } from "./LoginUseCase";
-import { IUserRequest } from "../../../../modules/user/dtos";
-import { decode, verify } from "jsonwebtoken";
-import { CreateUserUseCase } from "@/modules/user/useCases/CreateUser/CreateUserUseCase";
-import { useContainer } from "typeorm";
+import { verifyToken } from "@/modules/login/providers/verifyToken";
 
 const fakeUserRepository = new FakeUserRepository();
 const loginUseCase = new LoginUseCase(fakeUserRepository);
 const createUserUseCase = new CreateUserUseCase(fakeUserRepository);
 
 describe("LoginUseCase", () => {
-  it("shoud login an user", async () => {
-    const user: IUserRequest = { username: "leandro", password: "123" };
+  it("should be able an user authenticate", async () => {
+    const user: IUserRequest = { username: "leandrow", password: "123" };
 
     await createUserUseCase.execute(user);
 
     const token = await loginUseCase.execute(user);
 
-    expect(token).toBeTruthy();
+    const userAuthenticate = verifyToken(`Bearer ${token}`);
+
+    expect(userAuthenticate).toBeTruthy();
   });
 
-  it("should not able login an user", () => {
-    expect(async () => {
-      const user: IUserRequest = { username: "leandro", password: "123" };
+  it("should be not able an user authenticate not exists", async () => {
+    const user: IUserRequest = { username: "leandr", password: "123" };
 
-      await createUserUseCase.execute(user);
-
-      const token = await loginUseCase.execute({
-        username: user.username,
-        password: "1",
-      });
-    }).rejects.toBeInstanceOf(Error);
+    try {
+      await loginUseCase.execute(user);
+    } catch (err) {
+      expect(err.message).toBe("Username or password incorrect");
+      expect(err.statusCode).toBe(404);
+    }
   });
 
-  it("should not able login an user password incorrect", () => {
-    expect(async () => {
-      const user: IUserRequest = { username: "lean", password: "12" };
+  it("should be not able an user authenticate with password incorrect", async () => {
+    const user: IUserRequest = { username: "leandrow", password: "12" };
 
-      const token = await loginUseCase.execute(user);
-    }).rejects.toBeInstanceOf(Error);
+    try {
+      await loginUseCase.execute(user);
+    } catch (err) {
+      expect(err.message).toBe("Username or password incorrect");
+      expect(err.statusCode).toBe(401);
+    }
   });
 });

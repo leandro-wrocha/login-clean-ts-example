@@ -8,4 +8,8 @@ interface IUserRequest {
   password: string;
 }
 
-export { IUserDTO, IUserRequest };
+interface IUserAlreadyExistsRequest {
+  username: string;
+}
+
+export { IUserDTO, IUserRequest, IUserAlreadyExistsRequest };

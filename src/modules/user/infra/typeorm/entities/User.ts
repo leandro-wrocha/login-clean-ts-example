@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryColumn } from "typeorm";
+import { randomUUID } from "crypto";
 
 @Entity("users")
 export class User {
@@ -11,9 +12,9 @@ export class User {
   @Column()
   password: String;
 
-  // constructor() {
-  //   if (!this.id) {
-  //     this.id = randomUUID();
-  //   }
-  // }
+  constructor() {
+    if (!this.id) {
+      this.id = randomUUID();
+    }
+  }
 }
