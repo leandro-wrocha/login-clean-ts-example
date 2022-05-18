@@ -3,7 +3,7 @@ import { LoginUseCase } from "@/modules/login/useCases";
 import { ListUsersUseCase } from "@/modules/user/useCases";
 import { IUserDTO, IUserRequest } from "../../dtos";
 
-import { verifyToken } from "@/modules/login/providers/verifyToken";
+import { verifyToken } from "@/modules/login/providers/verifyTokenProvider";
 
 const fakeUserRepository = new FakeUserRepository();
 const loginUseCase = new LoginUseCase(fakeUserRepository);

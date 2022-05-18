@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { AppError } from "@/shared/errors/AppError";
 import { IUserDTO } from "@/modules/user/dtos";
 import { IUserRepository } from "@/modules/user/repositories/IUserRepository";
-import { generateToken } from "@/modules/login/providers/generateToken";
+import { generateToken } from "@/modules/login/providers/generateTokenProvider";
 
 @injectable()
 export class LoginUseCase {
